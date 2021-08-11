@@ -1,0 +1,22 @@
+{
+  "files": {
+    "app.js": "/saham-frontend/static/js/app.72e8e139.chunk.js",
+    "app.js.map": "/saham-frontend/static/js/app.72e8e139.chunk.js.map",
+    "runtime~app.js": "/saham-frontend/static/js/runtime~app.9fdafe8e.js",
+    "runtime~app.js.map": "/saham-frontend/static/js/runtime~app.9fdafe8e.js.map",
+    "static/js/2.7d1e2d08.chunk.js": "/saham-frontend/static/js/2.7d1e2d08.chunk.js",
+    "static/js/2.7d1e2d08.chunk.js.map": "/saham-frontend/static/js/2.7d1e2d08.chunk.js.map",
+    "favicon-16.png": "/saham-frontend/favicon-16.png",
+    "favicon-32.png": "/saham-frontend/favicon-32.png",
+    "favicon.ico": "/saham-frontend/favicon.ico",
+    "index.html": "/saham-frontend/index.html",
+    "manifest.json": "/saham-frontend/manifest.json",
+    "serve.json": "/saham-frontend/serve.json",
+    "static/js/2.7d1e2d08.chunk.js.LICENSE.txt": "/saham-frontend/static/js/2.7d1e2d08.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.9fdafe8e.js",
+    "static/js/2.7d1e2d08.chunk.js",
+    "static/js/app.72e8e139.chunk.js"
+  ]
+}
