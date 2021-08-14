@@ -8,7 +8,9 @@ import Valuation from './components/Valuation'
 
 export default () => {
     const [symbol, setSymbol] = React.useState("BBCA")
-    const [growth, setGrowth] = React.useState(0)
+    const [eps, setEPS] = React.useState("")
+    const [per, setPER] = React.useState("")
+    const [growth, setGrowth] = React.useState("")
 
     const {data, loading, error} = useQuery(STOCK, {
         variables:{
@@ -20,15 +22,28 @@ export default () => {
         setSymbol(text.toUpperCase())
     }
 
-    const tableData = () => {
-        let arr: any[][] = []
-        let eps = data.stock.payload.incomeStatement.eps
-        let per = data.stock.payload.incomeStatement.per
-        arr.push(eps)
-        arr.push(per)
-        return arr
+    const handlePERChange = (text: string) => {
+        const num = Number(text)
+        if (!Number.isNaN(num)) {
+            setPER(text)
+        }
     }
 
+    const handleEPSChange = (text: string) => {
+        const num = Number(text)
+        if (!Number.isNaN(num)) {
+            setEPS(text)
+        }
+    }
+
+    const handleGrowthChange = (text: string) => {
+        const num = Number(text)
+        if (!Number.isNaN(num)) {
+            setGrowth(text)
+        }
+    }
+
+    // growth
     React.useEffect(() => {
         if (loading) {
             return
@@ -41,7 +56,37 @@ export default () => {
         for(let i = 0; i < arr.length-1; i++) {
             res.push(((arr[i]-arr[i+1])/arr[i+1]*100))
         }
-        setGrowth(average(res.slice(0, 5)))
+        setGrowth(average(res.slice(0, 5)).toFixed(2))
+    }, [data])
+
+    // eps
+    React.useEffect(() => {
+        if (loading) {
+            return
+        }
+        if (error) {
+            return
+        }
+        setEPS(data.stock.payload.incomeStatement.eps[0].toString())
+    }, [data])
+
+    // per
+    React.useEffect(() => {
+        if (loading) {
+            return
+        }
+        if (error) {
+            return
+        }
+        const arr: number[] = data.stock.payload.incomeStatement.per
+        let avg = 0
+        let length = 0
+        arr.map((v) => {
+            avg += v
+            v !== 0 ? length++ : {}
+        })
+        avg /= length
+        setPER(avg.toFixed(2))
     }, [data])
 
     if (error) {
@@ -64,9 +109,12 @@ export default () => {
                 !loading && 
                 <>
                 <Valuation
-                    eps={data.stock.payload.incomeStatement.eps[0]}
-                    per={data.stock.payload.incomeStatement.per[0]}
+                    eps={eps}
+                    per={per}
                     growth={growth}
+                    handleEPSChange={handleEPSChange}
+                    handleGrowthChange={handleGrowthChange}
+                    handlePERChange={handlePERChange}
                 />
                 <Chart 
                     revenue={convertArrayStringToNumber(data.stock.payload.incomeStatement.revenue)}
@@ -76,9 +124,9 @@ export default () => {
                 />
                 <Table
                     header={["EPS", "PER"]}
-                    data={tableData()}
+                    data={[data.stock.payload.incomeStatement.eps, data.stock.payload.incomeStatement.per]}
                 />
-                <Text>AVG 5Y Growth: {growth.toPrecision(3)}%</Text>
+                <Text>AVG 5Y Growth: {growth}%</Text>
                 </>
             }
         </View>
