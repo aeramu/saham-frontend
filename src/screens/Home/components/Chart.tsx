@@ -29,7 +29,7 @@ export default ({revenue, gross, operating, net}: ChartProps) => {
                 },
             ],
             }}
-            width={Dimensions.get('window').width - 100} // from react-native
+            width={Dimensions.get('window').width - 50} // from react-native
             height={220}
             yAxisLabel={'Rs'}
             chartConfig={{

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, Text} from 'react-native'
+import {View, StyleSheet, Text, ScrollView, Dimensions} from 'react-native'
 import TextInput from '../../components/common/TextInput'
 import {gql, useQuery} from '@apollo/client'
 import Chart from './components/Chart'
@@ -8,9 +8,9 @@ import Valuation from './components/Valuation'
 
 export default () => {
     const [symbol, setSymbol] = React.useState("BBCA")
-    const [eps, setEPS] = React.useState("")
-    const [per, setPER] = React.useState("")
-    const [growth, setGrowth] = React.useState("")
+    const [eps, setEPS] = React.useState("0")
+    const [per, setPER] = React.useState("0")
+    const [growth, setGrowth] = React.useState("0")
 
     const {data, loading, error} = useQuery(STOCK, {
         variables:{
@@ -45,10 +45,7 @@ export default () => {
 
     // growth
     React.useEffect(() => {
-        if (loading) {
-            return
-        }
-        if (error) {
+        if (loading || error || data.stock.error.isError) {
             return
         }
         const arr = data.stock.payload.incomeStatement.operatingProfit
@@ -61,10 +58,7 @@ export default () => {
 
     // eps
     React.useEffect(() => {
-        if (loading) {
-            return
-        }
-        if (error) {
+        if (loading || error || data.stock.error.isError) {
             return
         }
         setEPS(data.stock.payload.incomeStatement.eps[0].toString())
@@ -72,10 +66,7 @@ export default () => {
 
     // per
     React.useEffect(() => {
-        if (loading) {
-            return
-        }
-        if (error) {
+        if (loading || error || data.stock.error.isError) {
             return
         }
         const arr: number[] = data.stock.payload.incomeStatement.per
@@ -104,30 +95,53 @@ export default () => {
                 placeholder="Symbol"
                 value={symbol}
                 onChangeText={handleSymbolChanged}
+                containerStyle={styles.symbolInput}
             />
-            {
-                !loading && 
-                <>
-                <Valuation
-                    eps={eps}
-                    per={per}
-                    growth={growth}
-                    handleEPSChange={handleEPSChange}
-                    handleGrowthChange={handleGrowthChange}
-                    handlePERChange={handlePERChange}
+            <View style={styles.inputContainer}>
+                <TextInput
+                    label="EPS"
+                    placeholder="EPS"
+                    value={eps}
+                    onChangeText={handleEPSChange}
+                    containerStyle={styles.textInput}
                 />
-                <Chart 
-                    revenue={convertArrayStringToNumber(data.stock.payload.incomeStatement.revenue)}
-                    gross={convertArrayStringToNumber(data.stock.payload.incomeStatement.grossProfit)}
-                    operating={convertArrayStringToNumber(data.stock.payload.incomeStatement.operatingProfit)}
-                    net={convertArrayStringToNumber(data.stock.payload.incomeStatement.netProfit)}
+                <TextInput
+                    label="PER"
+                    placeholder="PER"
+                    value={per}
+                    onChangeText={handlePERChange}
+                    containerStyle={styles.textInput}
                 />
-                <Table
-                    header={["EPS", "PER"]}
-                    data={[data.stock.payload.incomeStatement.eps, data.stock.payload.incomeStatement.per]}
+                <TextInput
+                    label="Growth"
+                    placeholder="Growth"
+                    value={growth}
+                    onChangeText={handleGrowthChange}
+                    containerStyle={styles.textInput}
                 />
-                <Text>AVG 5Y Growth: {growth}%</Text>
-                </>
+            </View>
+            {!loading && 
+                <View style={styles.dataContainer}>
+                    <Valuation
+                        eps={eps}
+                        per={per}
+                        growth={growth}
+                        style={styles.valuation}
+                    />
+                    <Chart 
+                        revenue={convertArrayStringToNumber(data.stock.payload.incomeStatement.revenue)}
+                        gross={convertArrayStringToNumber(data.stock.payload.incomeStatement.grossProfit)}
+                        operating={convertArrayStringToNumber(data.stock.payload.incomeStatement.operatingProfit)}
+                        net={convertArrayStringToNumber(data.stock.payload.incomeStatement.netProfit)}
+                    />
+                    <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
+                        <Table
+                            header={["EPS", "PER"]}
+                            data={[data.stock.payload.incomeStatement.eps, data.stock.payload.incomeStatement.per]}
+                        />
+                    </ScrollView>
+                    <Text>AVG 5Y Growth: {growth}%</Text>
+                </View>
             }
         </View>
     )
@@ -147,6 +161,9 @@ const STOCK = gql`
                     per
                 }
             }
+            error{
+                isError
+            }
         }
     }
 `
@@ -155,8 +172,26 @@ const styles = StyleSheet.create({
     container:{
         flex:1,
         padding:25,
-        alignItems:'flex-start'
-    }
+    },
+    inputContainer:{
+        flexDirection:'row',
+        flexWrap:'wrap',
+        marginTop:5,
+        marginBottom:5,
+    },
+    dataContainer:{
+
+    },
+    textInput:{
+        marginRight:10
+    },
+    symbolInput:{
+        alignSelf:'flex-start'
+    },
+    valuation:{
+        marginBottom: 10,
+        width: Dimensions.get('window').width > 500 ? 400 : '100%'
+    },
 })
 
 const convertArrayStringToNumber = (array : string[]) => {
