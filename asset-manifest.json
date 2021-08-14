@@ -1,22 +1,22 @@
 {
   "files": {
-    "app.js": "/saham-frontend/static/js/app.eca1ba1e.chunk.js",
-    "app.js.map": "/saham-frontend/static/js/app.eca1ba1e.chunk.js.map",
+    "app.js": "/saham-frontend/static/js/app.1b936815.chunk.js",
+    "app.js.map": "/saham-frontend/static/js/app.1b936815.chunk.js.map",
     "runtime~app.js": "/saham-frontend/static/js/runtime~app.9fdafe8e.js",
     "runtime~app.js.map": "/saham-frontend/static/js/runtime~app.9fdafe8e.js.map",
-    "static/js/2.a246b4cf.chunk.js": "/saham-frontend/static/js/2.a246b4cf.chunk.js",
-    "static/js/2.a246b4cf.chunk.js.map": "/saham-frontend/static/js/2.a246b4cf.chunk.js.map",
+    "static/js/2.2b40fb4f.chunk.js": "/saham-frontend/static/js/2.2b40fb4f.chunk.js",
+    "static/js/2.2b40fb4f.chunk.js.map": "/saham-frontend/static/js/2.2b40fb4f.chunk.js.map",
     "favicon-16.png": "/saham-frontend/favicon-16.png",
     "favicon-32.png": "/saham-frontend/favicon-32.png",
     "favicon.ico": "/saham-frontend/favicon.ico",
     "index.html": "/saham-frontend/index.html",
     "manifest.json": "/saham-frontend/manifest.json",
     "serve.json": "/saham-frontend/serve.json",
-    "static/js/2.a246b4cf.chunk.js.LICENSE.txt": "/saham-frontend/static/js/2.a246b4cf.chunk.js.LICENSE.txt"
+    "static/js/2.2b40fb4f.chunk.js.LICENSE.txt": "/saham-frontend/static/js/2.2b40fb4f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime~app.9fdafe8e.js",
-    "static/js/2.a246b4cf.chunk.js",
-    "static/js/app.eca1ba1e.chunk.js"
+    "static/js/2.2b40fb4f.chunk.js",
+    "static/js/app.1b936815.chunk.js"
   ]
 }
