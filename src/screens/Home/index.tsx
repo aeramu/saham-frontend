@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet, Text, ScrollView, Dimensions} from 'react-native'
+import {View, StyleSheet, Text, ScrollView, Dimensions, ActivityIndicator} from 'react-native'
 import TextInput from '../../components/common/TextInput'
 import {gql, useQuery} from '@apollo/client'
 import Chart from './components/Chart'
@@ -120,8 +120,9 @@ export default () => {
                     containerStyle={styles.textInput}
                 />
             </View>
-            {!loading && 
-                <View style={styles.dataContainer}>
+            {loading
+                ?<ActivityIndicator style={styles.loading} size={30}/> 
+                :<View style={styles.dataContainer}>
                     <Valuation
                         eps={eps}
                         per={per}
@@ -192,6 +193,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         width: Dimensions.get('window').width > 500 ? 400 : '100%'
     },
+    loading:{
+        marginTop:30,
+    }
 })
 
 const convertArrayStringToNumber = (array : string[]) => {
