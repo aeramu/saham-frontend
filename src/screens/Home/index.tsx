@@ -23,6 +23,9 @@ export default () => {
     }
 
     const handlePERChange = (text: string) => {
+        if (text == "-") {
+            setPER(text)
+        }
         const num = Number(text)
         if (!Number.isNaN(num)) {
             setPER(text)
@@ -30,6 +33,9 @@ export default () => {
     }
 
     const handleEPSChange = (text: string) => {
+        if (text == "-") {
+            setEPS(text)
+        }
         const num = Number(text)
         if (!Number.isNaN(num)) {
             setEPS(text)
@@ -37,6 +43,9 @@ export default () => {
     }
 
     const handleGrowthChange = (text: string) => {
+        if (text == "-") {
+            setGrowth(text)
+        }
         const num = Number(text)
         if (!Number.isNaN(num)) {
             setGrowth(text)
@@ -73,8 +82,10 @@ export default () => {
         let avg = 0
         let length = 0
         arr.map((v) => {
-            avg += v
-            v !== 0 ? length++ : {}
+            if (v > 0) {
+                avg += v
+                length++
+            }
         })
         avg /= length
         setPER(avg.toFixed(2))
