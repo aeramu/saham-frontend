@@ -140,16 +140,23 @@ export default () => {
                         growth={growth}
                         style={styles.valuation}
                     />
-                    <Chart 
-                        revenue={convertArrayStringToNumber(data.stock.payload.incomeStatement.revenue)}
-                        gross={convertArrayStringToNumber(data.stock.payload.incomeStatement.grossProfit)}
-                        operating={convertArrayStringToNumber(data.stock.payload.incomeStatement.operatingProfit)}
-                        net={convertArrayStringToNumber(data.stock.payload.incomeStatement.netProfit)}
-                    />
+                    <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
+                        <Chart
+                            labels={years.slice(0, data.stock.payload.incomeStatement.revenue.length)}
+                            revenue={convertArrayStringToNumber(data.stock.payload.incomeStatement.revenue)}
+                            gross={convertArrayStringToNumber(data.stock.payload.incomeStatement.grossProfit)}
+                            operating={convertArrayStringToNumber(data.stock.payload.incomeStatement.operatingProfit)}
+                            net={convertArrayStringToNumber(data.stock.payload.incomeStatement.netProfit)}
+                        />
+                    </ScrollView>
                     <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
                         <Table
-                            header={["EPS", "PER"]}
-                            data={[data.stock.payload.incomeStatement.eps, data.stock.payload.incomeStatement.per]}
+                            header={["", "EPS", "PER"]}
+                            data={[
+                                years.slice(0, data.stock.payload.incomeStatement.revenue.length),
+                                data.stock.payload.incomeStatement.eps, 
+                                data.stock.payload.incomeStatement.per
+                            ]}
                         />
                     </ScrollView>
                     <Text>AVG 5Y Growth: {growth}%</Text>
@@ -158,6 +165,9 @@ export default () => {
         </View>
     )
 }
+
+const years = ["2020","2019","2018","2017","2016","2015","2014","2013","2012","2011",
+                "2010","2009","2008","2007","2006","2005","2004","2003","2002","2001"]
 
 const STOCK = gql`
     query($symbol:String!){

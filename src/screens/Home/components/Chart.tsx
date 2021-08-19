@@ -1,54 +1,67 @@
 import React from 'react'
-import {Dimensions} from 'react-native'
-import {LineChart, BarChart} from 'react-native-chart-kit'
+import {LineChart} from 'react-native-chart-kit'
 
 interface ChartProps {
+    labels: string[]
     revenue: number[]
     gross: number[]
     operating: number[]
     net: number[]
 }
 
-export default ({revenue, gross, operating, net}: ChartProps) => {
+export default ({revenue, gross, operating, net, labels}: ChartProps) => {
     return(
         <LineChart
             data={{
-            labels: years.slice(0,revenue.length),
-            datasets: [
-                {
-                    data: revenue,
-                },
-                {
-                    data: gross,
-                },
-                {
-                    data: operating,
-                },
-                {
-                    data: net,
-                },
-            ],
+                labels: labels,
+                datasets: [
+                    {
+                        data: revenue,
+                        color: () => ('blue')
+                    },
+                    {
+                        data: gross,
+                        color: () => ('red')
+                    },
+                    {
+                        data: operating,
+                        color: () => ('orange')
+                    },
+                    {
+                        data: net,
+                        color: () => ('green')
+                    },
+                ],
             }}
-            width={Dimensions.get('window').width - 50} // from react-native
+            width={50*labels.length}
             height={220}
-            yAxisLabel={'Rs'}
             chartConfig={{
                 backgroundColor: 'white',
                 backgroundGradientFrom: 'white',
                 backgroundGradientTo: 'white',
-                decimalPlaces: 0, // optional, defaults to 2dp
-                color: (opacity = 0) => `rgba(100, 0, 0, ${opacity})`,
-                style: {
-                    borderRadius: 16,
-                },  
+                decimalPlaces: 0,
+                color: () => 'grey',
+                labelColor: () => 'black',
+                strokeWidth: 2,
+            }}
+            formatYLabel={(y: string) => {
+                if (y.length > 13) {
+                    return y.slice(0, y.length-12) + 'T'    
+                }
+                else if (y.length > 10) {
+                    return y.slice(0, y.length-9) + 'B'  
+                }
+                else if (y.length > 7) {
+                    return y.slice(0, y.length-6) + 'M'  
+                }
+                else if (y.length > 4) {
+                    return y.slice(0, y.length-3) + 'K'  
+                }
+                return y
             }}
             style={{
                 marginVertical: 8,
-                borderRadius: 16,
             }}
         />
     )
 }
-
-const years = ["2020","2019","2018","2017","2016","2015","2014","2013","2012","2011",
-                "2010","2009","2008","2007","2006","2005","2004","2003","2002","2001"]

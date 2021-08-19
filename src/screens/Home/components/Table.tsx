@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         flex:1,
         alignSelf:'stretch',
         padding:10,
+        width:100,
         borderColor:'grey',
         borderWidth:1
     },
