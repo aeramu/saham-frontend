@@ -94,11 +94,13 @@ export default () => {
                         onChangeText={handleEPSChange}
                         containerStyle={styles.textInput}
                     />
-                    <Calculator
-                        data={data.stock.payload.incomeStatement.eps}
-                        setResult={(num) => setEPS(num.toFixed(2))}
-                        initialState={[true]}
-                    />
+                    <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
+                        <Calculator
+                            data={data.stock.payload.incomeStatement.eps}
+                            setResult={(num) => setEPS(num.toFixed(2))}
+                            initialState={[true]}
+                        />
+                    </ScrollView>
                     <TextInput
                         label="PER"
                         placeholder="PER"
@@ -106,12 +108,14 @@ export default () => {
                         onChangeText={handlePERChange}
                         containerStyle={styles.textInput}
                     />
-                    <Calculator
-                        data={data.stock.payload.incomeStatement.per}
-                        suffix='x'
-                        setResult={(num) => setPER(num.toFixed(2))}
-                        initialState={[true, true, true, true, true, true, true, true, true, true]}
-                    />
+                    <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
+                        <Calculator
+                            data={data.stock.payload.incomeStatement.per}
+                            suffix='x'
+                            setResult={(num) => setPER(num.toFixed(2))}
+                            initialState={[true, true, true, true, true, true, true, true, true, true]}
+                        />
+                    </ScrollView>
                     <TextInput
                         label="Growth"
                         placeholder="Growth"
@@ -119,12 +123,14 @@ export default () => {
                         onChangeText={handleGrowthChange}
                         containerStyle={styles.textInput}
                     />
-                    <Calculator
-                        data={growthList}
-                        suffix='%'
-                        setResult={(num) => setGrowth(num.toFixed(2))}
-                        initialState={[true, true, true, true, true]}
-                    />
+                    <ScrollView horizontal style={{width:Dimensions.get('window').width-50}}>
+                        <Calculator
+                            data={growthList}
+                            suffix='%'
+                            setResult={(num) => setGrowth(num.toFixed(2))}
+                            initialState={[true, true, true, true, true]}
+                        />
+                    </ScrollView>
                     <Valuation
                         eps={eps}
                         per={per}
