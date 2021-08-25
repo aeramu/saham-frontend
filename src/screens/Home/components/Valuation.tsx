@@ -31,16 +31,20 @@ export default (props: ValuationProps) => {
                 value={value.toFixed(2)}
             />
             <DataEntry
-                name="Buyback Price"
-                value={(value*3/4).toFixed(2)}
+                name="Margin 25%"
+                value={(value*75/100).toFixed(2)}
             />
             <DataEntry
-                name="Buy Price"
-                value={(value*2/3).toFixed(2)}
+                name="Margin 33%"
+                value={(value*66/100).toFixed(2)}
             />
             <DataEntry
-                name="Discount Price"
-                value={(value/2).toFixed(2)}
+                name="Margin 40%"
+                value={(value*60/10).toFixed(2)}
+            />
+            <DataEntry
+                name="Margin 50%"
+                value={(value*50/100).toFixed(2)}
             />
         </View>
     )
