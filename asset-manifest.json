@@ -1,7 +1,7 @@
 {
   "files": {
-    "app.js": "/saham-frontend/static/js/app.834e3320.chunk.js",
-    "app.js.map": "/saham-frontend/static/js/app.834e3320.chunk.js.map",
+    "app.js": "/saham-frontend/static/js/app.4199cb70.chunk.js",
+    "app.js.map": "/saham-frontend/static/js/app.4199cb70.chunk.js.map",
     "runtime~app.js": "/saham-frontend/static/js/runtime~app.9fdafe8e.js",
     "runtime~app.js.map": "/saham-frontend/static/js/runtime~app.9fdafe8e.js.map",
     "static/js/2.6eb0a535.chunk.js": "/saham-frontend/static/js/2.6eb0a535.chunk.js",
@@ -17,6 +17,6 @@
   "entrypoints": [
     "static/js/runtime~app.9fdafe8e.js",
     "static/js/2.6eb0a535.chunk.js",
-    "static/js/app.834e3320.chunk.js"
+    "static/js/app.4199cb70.chunk.js"
   ]
 }
